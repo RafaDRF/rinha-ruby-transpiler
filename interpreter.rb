@@ -3,6 +3,8 @@ class Interpreter
     case expression[:kind]
     when 'Binary'
       return binary_exp(evalue(expression[:lhs]), expression[:op], evalue(expression[:rhs]))
+    when 'Print'
+      return print evalue(expression[:value])
     end
 
     expression[:value]

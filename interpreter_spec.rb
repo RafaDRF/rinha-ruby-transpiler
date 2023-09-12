@@ -283,6 +283,25 @@ describe Interpreter do
 
     it { expect(evalue).to eq(true) }
   end
+
+  context 'print("alguma coisa")' do
+    let(:json_string) do
+      '{
+        "kind": "Print",
+        "value": {
+          "kind": "Str",
+          "value": "alguma coisa",
+          "location": {
+            "start": 6,
+            "end": 9,
+            "filename": "print.rinha"
+          }
+        }
+      }'
+    end
+
+    it { expect{ evalue }.to output('alguma coisa').to_stdout }
+  end
 end
 
 def formated_expression(string_json)
