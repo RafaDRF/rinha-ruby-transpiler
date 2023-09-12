@@ -8,7 +8,7 @@ describe Interpreter do
     let(:json_string) do
       '{
         "kind": "Int",
-        "value": 3,
+        "value": 3
       }'
     end
 
@@ -37,7 +37,7 @@ describe Interpreter do
     it { expect(evalue).to eq('palavra usada') }
   end
 
-  context 'add' do
+  context 'Add' do
     let(:json_string) do
       '{
         "kind": "Binary",
@@ -54,6 +54,82 @@ describe Interpreter do
     end
 
     it { expect(evalue).to eq(5) }
+  end
+
+  context 'Sub' do
+    let(:json_string) do
+      '{
+        "kind": "Binary",
+        "lhs": {
+          "kind": "Int",
+          "value": 3
+        },
+        "op": "Sub",
+        "rhs": {
+          "kind": "Int",
+          "value": 7
+        }
+      }'
+    end
+
+    it { expect(evalue).to eq(-4) }
+  end
+
+  context 'Mul' do
+    let(:json_string) do
+      '{
+        "kind": "Binary",
+        "lhs": {
+          "kind": "Int",
+          "value": 5
+        },
+        "op": "Mul",
+        "rhs": {
+          "kind": "Int",
+          "value": 7
+        }
+      }'
+    end
+
+    it { expect(evalue).to eq(35) }
+  end
+
+  context 'Div' do
+    let(:json_string) do
+      '{
+        "kind": "Binary",
+        "lhs": {
+          "kind": "Int",
+          "value": 4
+        },
+        "op": "Div",
+        "rhs": {
+          "kind": "Int",
+          "value": 2
+        }
+      }'
+    end
+
+    it { expect(evalue).to eq(2) }
+  end
+
+  context 'Rem' do
+    let(:json_string) do
+      '{
+        "kind": "Binary",
+        "lhs": {
+          "kind": "Int",
+          "value": 4
+        },
+        "op": "Rem",
+        "rhs": {
+          "kind": "Int",
+          "value": 2
+        }
+      }'
+    end
+
+    it { expect(evalue).to eq(0) }
   end
 end
 
