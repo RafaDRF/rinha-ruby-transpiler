@@ -362,6 +362,28 @@ describe Interpreter do
 
     it { expect(evaluate).to eq(2) }
   end
+
+  context 'if' do
+    let(:json_string) do
+      '{
+        "kind": "If",
+        "condition": {
+          "kind": "Bool",
+          "value": true
+        },
+        "then": {
+          "kind": "Int",
+          "value": 1
+        },
+        "otherwise": {
+          "kind": "Int",
+          "value": 2
+        }
+      }'
+    end
+
+    it { expect(evaluate).to eq(1) }
+  end
 end
 
 def formated_expression(string_json)

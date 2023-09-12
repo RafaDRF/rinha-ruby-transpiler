@@ -11,6 +11,8 @@ class Interpreter
       return evaluate(expression[:value]).first
     when 'Second'
       return evaluate(expression[:value]).last
+    when 'If'
+      return evaluate(expression[:condition]) ? evaluate(expression[:then]) : evaluate(expression[:otherwise])
     end
 
     expression[:value]
