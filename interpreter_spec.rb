@@ -302,6 +302,66 @@ describe Interpreter do
 
     it { expect{ evaluate }.to output('alguma coisa').to_stdout }
   end
+
+  context 'Tuple (3, 4)' do
+    let(:json_string) do
+      '{
+        "kind": "Tuple",
+        "first": {
+          "kind": "Int",
+          "value": 3
+        },
+        "second": {
+          "kind": "Int",
+          "value": 4
+        }
+      }'
+    end
+
+    it { expect(evaluate).to eq([3, 4]) }
+  end
+
+  context 'first((1, 2))' do
+    let(:json_string) do
+      '{
+        "kind": "First",
+        "value": {
+          "kind": "Tuple",
+          "first": {
+            "kind": "Int",
+            "value": 1
+          },
+          "second": {
+            "kind": "Int",
+            "value": 2
+          }
+        }
+      }'
+    end
+
+    it { expect(evaluate).to eq(1) }
+  end
+
+  context 'second((1, 2))' do
+    let(:json_string) do
+      '{
+        "kind": "Second",
+        "value": {
+          "kind": "Tuple",
+          "first": {
+            "kind": "Int",
+            "value": 1
+          },
+          "second": {
+            "kind": "Int",
+            "value": 2
+          }
+        }
+      }'
+    end
+
+    it { expect(evaluate).to eq(2) }
+  end
 end
 
 def formated_expression(string_json)

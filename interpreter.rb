@@ -5,6 +5,12 @@ class Interpreter
       return binary_exp(evaluate(expression[:lhs]), expression[:op], evaluate(expression[:rhs]))
     when 'Print'
       return print evaluate(expression[:value])
+    when 'Tuple'
+      return [evaluate(expression[:first]), evaluate(expression[:second])]
+    when 'First'
+      return evaluate(expression[:value]).first
+    when 'Second'
+      return evaluate(expression[:value]).last
     end
 
     expression[:value]
