@@ -1,10 +1,10 @@
 class Interpreter
-  def self.evalue(expression)
+  def self.evaluate(expression)
     case expression[:kind]
     when 'Binary'
-      return binary_exp(evalue(expression[:lhs]), expression[:op], evalue(expression[:rhs]))
+      return binary_exp(evaluate(expression[:lhs]), expression[:op], evaluate(expression[:rhs]))
     when 'Print'
-      return print evalue(expression[:value])
+      return print evaluate(expression[:value])
     end
 
     expression[:value]

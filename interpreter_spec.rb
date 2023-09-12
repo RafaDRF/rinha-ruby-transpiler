@@ -2,7 +2,7 @@ require_relative 'interpreter'
 require 'json'
 
 describe Interpreter do
-  let(:evalue) { described_class.evalue(formated_expression(json_string)) }
+  let(:evaluate) { described_class.evaluate(formated_expression(json_string)) }
 
   context 'Inteiro' do
     let(:json_string) do
@@ -12,7 +12,7 @@ describe Interpreter do
       }'
     end
 
-    it { expect(evalue).to eq(3) }
+    it { expect(evaluate).to eq(3) }
   end
 
   context 'Bool' do
@@ -23,7 +23,7 @@ describe Interpreter do
       }'
     end
 
-    it { expect(evalue).to eq(true) }
+    it { expect(evaluate).to eq(true) }
   end
 
   context 'String' do
@@ -34,7 +34,7 @@ describe Interpreter do
       }'
     end
 
-    it { expect(evalue).to eq('palavra usada') }
+    it { expect(evaluate).to eq('palavra usada') }
   end
 
   context 'Add' do
@@ -53,7 +53,7 @@ describe Interpreter do
       }'
     end
 
-    it { expect(evalue).to eq(5) }
+    it { expect(evaluate).to eq(5) }
   end
 
   context 'Sub' do
@@ -72,7 +72,7 @@ describe Interpreter do
       }'
     end
 
-    it { expect(evalue).to eq(-4) }
+    it { expect(evaluate).to eq(-4) }
   end
 
   context 'Mul' do
@@ -91,7 +91,7 @@ describe Interpreter do
       }'
     end
 
-    it { expect(evalue).to eq(35) }
+    it { expect(evaluate).to eq(35) }
   end
 
   context 'Div' do
@@ -110,7 +110,7 @@ describe Interpreter do
       }'
     end
 
-    it { expect(evalue).to eq(2) }
+    it { expect(evaluate).to eq(2) }
   end
 
   context 'Rem' do
@@ -129,7 +129,7 @@ describe Interpreter do
       }'
     end
 
-    it { expect(evalue).to eq(0) }
+    it { expect(evaluate).to eq(0) }
   end
 
   context 'Igualdade  "a" == "a"' do
@@ -148,7 +148,7 @@ describe Interpreter do
       }'
     end
 
-    it { expect(evalue).to eq(true) }
+    it { expect(evaluate).to eq(true) }
   end
 
   context 'Diferente  "a" != "a"' do
@@ -167,7 +167,7 @@ describe Interpreter do
       }'
     end
 
-    it { expect(evalue).to eq(false) }
+    it { expect(evaluate).to eq(false) }
   end
 
   context 'Menor  1 < 2' do
@@ -186,7 +186,7 @@ describe Interpreter do
       }'
     end
 
-    it { expect(evalue).to eq(true) }
+    it { expect(evaluate).to eq(true) }
   end
 
   context 'Maior  2 > 3' do
@@ -205,7 +205,7 @@ describe Interpreter do
       }'
     end
 
-    it { expect(evalue).to eq(false) }
+    it { expect(evaluate).to eq(false) }
   end
 
   context 'Menor ou igual 5 <= 7' do
@@ -224,7 +224,7 @@ describe Interpreter do
       }'
     end
 
-    it { expect(evalue).to eq(true) }
+    it { expect(evaluate).to eq(true) }
   end
 
   context 'Maior ou igual 5 >= 7' do
@@ -243,7 +243,7 @@ describe Interpreter do
       }'
     end
 
-    it { expect(evalue).to eq(false) }
+    it { expect(evaluate).to eq(false) }
   end
 
   context 'And true && false' do
@@ -262,7 +262,7 @@ describe Interpreter do
       }'
     end
 
-    it { expect(evalue).to eq(false) }
+    it { expect(evaluate).to eq(false) }
   end
 
   context 'Or true || false' do
@@ -281,7 +281,7 @@ describe Interpreter do
       }'
     end
 
-    it { expect(evalue).to eq(true) }
+    it { expect(evaluate).to eq(true) }
   end
 
   context 'print("alguma coisa")' do
@@ -300,7 +300,7 @@ describe Interpreter do
       }'
     end
 
-    it { expect{ evalue }.to output('alguma coisa').to_stdout }
+    it { expect{ evaluate }.to output('alguma coisa').to_stdout }
   end
 end
 
