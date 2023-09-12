@@ -21,7 +21,7 @@ class Interpreter
   def self.binary_exp(lhs, op, rhs)
     case op
     when 'Add'
-      lhs + rhs
+      [lhs, rhs].all?(Numeric) ? lhs + rhs : lhs.to_s + rhs.to_s
     when 'Sub'
       lhs - rhs
     when 'Mul'

@@ -37,7 +37,7 @@ describe Interpreter do
     it { expect(evaluate).to eq('palavra usada') }
   end
 
-  context 'Add' do
+  context 'Add Soma 3 + 2' do
     let(:json_string) do
       '{
         "kind": "Binary",
@@ -54,6 +54,26 @@ describe Interpreter do
     end
 
     it { expect(evaluate).to eq(5) }
+  end
+
+
+  context 'Add Concatenacao "a" + 2' do
+    let(:json_string) do
+      '{
+        "kind": "Binary",
+        "lhs": {
+          "kind": "Str",
+          "value": "a"
+        },
+        "op": "Add",
+        "rhs": {
+          "kind": "Int",
+          "value": 2
+        }
+      }'
+    end
+
+    it { expect(evaluate).to eq("a2") }
   end
 
   context 'Sub' do
