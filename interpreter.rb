@@ -20,6 +20,22 @@ class Interpreter
       lhs / rhs
     when 'Rem'
       lhs % rhs
+    when 'Eq'
+      lhs == rhs
+    when 'Neq'
+      lhs != rhs
+    when 'Lt'
+      lhs < rhs
+    when 'Gt'
+      lhs > rhs
+    when 'Lte'
+      lhs <= rhs
+    when 'Gte'
+      lhs >= rhs
+    when 'And'
+      lhs && rhs
+    when 'Or'
+      lhs || rhs
     end
   end
 end
