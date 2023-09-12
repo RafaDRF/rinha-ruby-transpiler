@@ -9,11 +9,6 @@ describe Interpreter do
       '{
         "kind": "Int",
         "value": 3,
-        "location": {
-          "start": 0,
-          "end": 1,
-          "filename": "int.rinha"
-        }
       }'
     end
 
