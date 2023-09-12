@@ -2,11 +2,11 @@ require_relative 'interpreter'
 require 'json'
 
 describe Interpreter do
-  let(:evalue) { described_class.evalue(expression) }
+  let(:evalue) { described_class.evalue(formated_expression(json_string)) }
 
   context 'Inteiro' do
-    let(:expression) do
-      formated_expression('{
+    let(:json_string) do
+      '{
         "kind": "Int",
         "value": 3,
         "location": {
@@ -14,37 +14,37 @@ describe Interpreter do
           "end": 1,
           "filename": "int.rinha"
         }
-      }')
+      }'
     end
 
     it { expect(evalue).to eq(3) }
   end
 
   context 'Bool' do
-    let(:expression) do
-      formated_expression('{
+    let(:json_string) do
+      '{
         "kind": "Bool",
         "value": true
-      }')
+      }'
     end
 
     it { expect(evalue).to eq(true) }
   end
 
   context 'String' do
-    let(:expression) do
-      formated_expression('{
+    let(:json_string) do
+      '{
         "kind": "Str",
         "value": "palavra usada"
-      }')
+      }'
     end
 
     it { expect(evalue).to eq('palavra usada') }
   end
 
   context 'add' do
-    let(:expression) do
-      formated_expression('{
+    let(:json_string) do
+      '{
         "kind": "Binary",
         "lhs": {
           "kind": "Int",
@@ -55,7 +55,7 @@ describe Interpreter do
           "kind": "Int",
           "value": 2
         }
-      }')
+      }'
     end
 
     it { expect(evalue).to eq(5) }
