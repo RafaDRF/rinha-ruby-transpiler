@@ -403,8 +403,69 @@ describe Interpreter do
 
     it { expect(evaluate).to eq(1) }
   end
+
+  context 'Atribuição Let a = 1' do
+    let(:json_string) do
+      '{
+        "kind": "Let",
+        "name": {
+          "text": "a"
+        },
+        "value": {
+          "kind": "Int",
+          "value": 4
+        },
+        "next": {
+          "kind": "Var",
+          "text": "a"
+        }
+      }'
+    end
+
+    it { expect(evaluate).to eq(4) }
+  end
+
+  context 'Atribuição Let a = 1; Let b = 2; a + b' do
+    let(:json_string) do
+      '{
+        "kind": "Let",
+        "name": {
+          "text": "a"
+        },
+        "value": {
+          "kind": "Int",
+          "value": 1
+        },
+        "next": {
+          "kind": "Let",
+          "name": {
+            "text": "b"
+          },
+          "value": {
+            "kind": "Int",
+            "value": 2
+          },
+          "next": {
+            "kind": "Binary",
+            "lhs": {
+              "kind": "Var",
+              "text": "a"
+            },
+            "op": "Add",
+            "rhs": {
+              "kind": "Var",
+              "text": "b"
+            }
+          }
+        }
+      }'
+    end
+
+    it { expect(evaluate).to eq(3) }
+  end
 end
 
 def formated_expression(string_json)
   JSON.parse(string_json, symbolize_names: true)
 end
+

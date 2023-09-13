@@ -1,18 +1,22 @@
 class Interpreter
-  def self.evaluate(expression)
+  def self.evaluate(expression, local_variables={})
     case expression[:kind]
     when 'Binary'
-      return binary_exp(evaluate(expression[:lhs]), expression[:op], evaluate(expression[:rhs]))
+      return binary_exp(evaluate(expression[:lhs], local_variables), expression[:op], evaluate(expression[:rhs], local_variables))
     when 'Print'
-      return print evaluate(expression[:value])
+      return print evaluate(expression[:value], local_variables)
     when 'Tuple'
-      return [evaluate(expression[:first]), evaluate(expression[:second])]
+      return [evaluate(expression[:first], local_variables), evaluate(expression[:second], local_variables)]
     when 'First'
-      return evaluate(expression[:value]).first
+      return evaluate(expression[:value], local_variables).first
     when 'Second'
-      return evaluate(expression[:value]).last
+      return evaluate(expression[:value], local_variables).last
     when 'If'
-      return evaluate(expression[:condition]) ? evaluate(expression[:then]) : evaluate(expression[:otherwise])
+      return evaluate(expression[:condition], local_variables) ? evaluate(expression[:then], local_variables) : evaluate(expression[:otherwise], local_variables)
+    when 'Let'
+      return evaluate(expression[:next], local_variables.merge({ expression[:name][:text] => evaluate(expression[:value], local_variables) }))
+    when 'Var'
+      return local_variables[expression[:text]]
     end
 
     expression[:value]
