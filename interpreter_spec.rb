@@ -56,7 +56,6 @@ describe Interpreter do
     it { expect(evaluate).to eq(5) }
   end
 
-
   context 'Add Concatenacao "a" + 2' do
     let(:json_string) do
       '{
@@ -73,7 +72,7 @@ describe Interpreter do
       }'
     end
 
-    it { expect(evaluate).to eq("a2") }
+    it { expect(evaluate).to eq('a2') }
   end
 
   context 'Sub' do
