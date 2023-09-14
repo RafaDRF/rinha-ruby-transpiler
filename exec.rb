@@ -5,4 +5,4 @@ file = File.read('/var/rinha/source.rinha.json')
 
 data_hash = JSON.parse(file, symbolize_names: true)
 
-Interpreter.evaluate data_hash[:expression]
+Interpreter.new.evaluate data_hash[:expression]
