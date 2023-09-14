@@ -2,7 +2,7 @@ require_relative 'interpreter'
 require 'json'
 
 describe Interpreter do
-  let(:evaluate) { described_class.evaluate(formated_expression(json_string)) }
+  let(:evaluate) { described_class.new.evaluate(formated_expression(json_string)) }
 
   context 'Inteiro' do
     let(:json_string) do
