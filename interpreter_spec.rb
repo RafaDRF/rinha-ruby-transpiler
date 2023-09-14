@@ -322,6 +322,27 @@ describe Interpreter do
     it { expect { evaluate }.to output("alguma coisa\n").to_stdout }
   end
 
+  context 'print((2, 4))' do
+    let(:json_string) do
+      '{
+        "kind": "Print",
+        "value": {
+          "kind": "Tuple",
+          "first": {
+            "kind": "Int",
+            "value": 2
+          },
+          "second": {
+            "kind": "Int",
+            "value": 4
+          }
+        }
+      }'
+    end
+
+    it { expect { evaluate }.to output("(2, 4)\n").to_stdout }
+  end
+
   context 'Tuple (3, 4)' do
     let(:json_string) do
       '{
@@ -337,7 +358,7 @@ describe Interpreter do
       }'
     end
 
-    it { expect(evaluate).to eq([3, 4]) }
+    it { expect(evaluate).to eq(Tuple.new(3, 4)) }
   end
 
   context 'first((1, 2))' do
@@ -468,4 +489,3 @@ end
 def formated_expression(string_json)
   JSON.parse(string_json, symbolize_names: true)
 end
-

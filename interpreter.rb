@@ -1,3 +1,5 @@
+require_relative 'tuple'
+
 class Interpreter
   def self.evaluate(expression, local_variables={})
     case expression[:kind]
@@ -6,11 +8,11 @@ class Interpreter
     when 'Print'
       return puts evaluate(expression[:value], local_variables)
     when 'Tuple'
-      return [evaluate(expression[:first], local_variables), evaluate(expression[:second], local_variables)]
+      return Tuple.new(evaluate(expression[:first], local_variables), evaluate(expression[:second], local_variables))
     when 'First'
       return evaluate(expression[:value], local_variables).first
     when 'Second'
-      return evaluate(expression[:value], local_variables).last
+      return evaluate(expression[:value], local_variables).second
     when 'If'
       return evaluate(expression[:condition], local_variables) ? evaluate(expression[:then], local_variables) : evaluate(expression[:otherwise], local_variables)
     when 'Let'
