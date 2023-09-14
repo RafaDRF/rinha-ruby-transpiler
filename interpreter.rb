@@ -4,7 +4,7 @@ class Interpreter
     when 'Binary'
       return binary_exp(evaluate(expression[:lhs], local_variables), expression[:op], evaluate(expression[:rhs], local_variables))
     when 'Print'
-      return print evaluate(expression[:value], local_variables)
+      return puts evaluate(expression[:value], local_variables)
     when 'Tuple'
       return [evaluate(expression[:first], local_variables), evaluate(expression[:second], local_variables)]
     when 'First'

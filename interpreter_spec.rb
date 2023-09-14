@@ -319,7 +319,7 @@ describe Interpreter do
       }'
     end
 
-    it { expect{ evaluate }.to output('alguma coisa').to_stdout }
+    it { expect { evaluate }.to output("alguma coisa\n").to_stdout }
   end
 
   context 'Tuple (3, 4)' do
