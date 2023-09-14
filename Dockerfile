@@ -10,6 +10,7 @@ RUN bundle install
 
 COPY exec.rb ./
 COPY interpreter.rb ./
+COPY tuple.rb ./
 COPY ./var/rinha/source.rinha.json /var/rinha/source.rinha.json
 
 CMD ["ruby", "exec.rb"]
