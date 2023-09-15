@@ -12,14 +12,14 @@ class Interpreter
     when 'Binary'
       lhs = evaluate(expression[:lhs])
       loop do
-        break if lhs.is_a?(Numeric) || lhs.respond_to?(:to_str) || lhs == true || lhs == false
+        break unless lhs.is_a?(Hash)
 
         lhs = evaluate(lhs)
       end
 
       rhs = evaluate(expression[:rhs])
       loop do
-        break if rhs.is_a?(Numeric) || rhs.respond_to?(:to_str) || rhs == true || rhs == false
+        break unless rhs.is_a?(Hash)
 
         rhs = evaluate(rhs)
       end
