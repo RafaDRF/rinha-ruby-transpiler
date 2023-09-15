@@ -309,12 +309,7 @@ describe Interpreter do
         "kind": "Print",
         "value": {
           "kind": "Str",
-          "value": "alguma coisa",
-          "location": {
-            "start": 6,
-            "end": 9,
-            "filename": "print.rinha"
-          }
+          "value": "alguma coisa"
         }
       }'
     end
@@ -494,107 +489,47 @@ describe Interpreter do
       '{
         "kind": "Let",
         "name": {
-          "text": "soma",
-          "location": {
-            "start": 4,
-            "end": 8,
-            "filename": "source.rinha"
-          }
+          "text": "soma"
         },
         "value": {
           "kind": "Function",
           "parameters": [
             {
-              "text": "a",
-              "location": {
-                "start": 14,
-                "end": 15,
-                "filename": "source.rinha"
-              }
+              "text": "a"
             },
             {
-              "text": "b",
-              "location": {
-                "start": 17,
-                "end": 18,
-                "filename": "source.rinha"
-              }
+              "text": "b"
             }
           ],
           "value": {
             "kind": "Binary",
             "lhs": {
               "kind": "Var",
-              "text": "a",
-              "location": {
-                "start": 29,
-                "end": 30,
-                "filename": "source.rinha"
-              }
+              "text": "a"
             },
             "op": "Add",
             "rhs": {
               "kind": "Var",
-              "text": "b",
-              "location": {
-                "start": 33,
-                "end": 34,
-                "filename": "source.rinha"
-              }
-            },
-            "location": {
-              "start": 29,
-              "end": 34,
-              "filename": "source.rinha"
+              "text": "b"
             }
-          },
-          "location": {
-            "start": 11,
-            "end": 36,
-            "filename": "source.rinha"
           }
         },
         "next": {
           "kind": "Call",
           "callee": {
             "kind": "Var",
-            "text": "soma",
-            "location": {
-              "start": 39,
-              "end": 43,
-              "filename": "source.rinha"
-            }
+            "text": "soma"
           },
           "arguments": [
             {
               "kind": "Int",
-              "value": 10,
-              "location": {
-                "start": 44,
-                "end": 46,
-                "filename": "source.rinha"
-              }
+              "value": 10
             },
             {
               "kind": "Int",
-              "value": 20,
-              "location": {
-                "start": 48,
-                "end": 50,
-                "filename": "source.rinha"
-              }
+              "value": 20
             }
-          ],
-          "location": {
-            "start": 39,
-            "end": 51,
-            "filename": "source.rinha"
-          }
-        },
-        "location": {
-          "start": 0,
-          "end": 51,
-          "filename": "source.rinha"
+          ]
         }
       }'
     end
