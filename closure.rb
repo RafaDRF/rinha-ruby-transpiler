@@ -1,6 +1,5 @@
 require_relative 'interpreter'
 require 'json'
-require 'byebug'
 class Closure
   def initialize(parameters, value, local_variables)
     @parameters = parameters
