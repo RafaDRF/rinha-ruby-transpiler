@@ -484,6 +484,123 @@ describe Interpreter do
 
     it { expect(evaluate).to eq(3) }
   end
+
+  context 'let soma = fn(a, b) => {
+              a + b
+          };
+
+          soma(10, 20)' do
+    let(:json_string) do
+      '{
+        "kind": "Let",
+        "name": {
+          "text": "soma",
+          "location": {
+            "start": 4,
+            "end": 8,
+            "filename": "source.rinha"
+          }
+        },
+        "value": {
+          "kind": "Function",
+          "parameters": [
+            {
+              "text": "a",
+              "location": {
+                "start": 14,
+                "end": 15,
+                "filename": "source.rinha"
+              }
+            },
+            {
+              "text": "b",
+              "location": {
+                "start": 17,
+                "end": 18,
+                "filename": "source.rinha"
+              }
+            }
+          ],
+          "value": {
+            "kind": "Binary",
+            "lhs": {
+              "kind": "Var",
+              "text": "a",
+              "location": {
+                "start": 29,
+                "end": 30,
+                "filename": "source.rinha"
+              }
+            },
+            "op": "Add",
+            "rhs": {
+              "kind": "Var",
+              "text": "b",
+              "location": {
+                "start": 33,
+                "end": 34,
+                "filename": "source.rinha"
+              }
+            },
+            "location": {
+              "start": 29,
+              "end": 34,
+              "filename": "source.rinha"
+            }
+          },
+          "location": {
+            "start": 11,
+            "end": 36,
+            "filename": "source.rinha"
+          }
+        },
+        "next": {
+          "kind": "Call",
+          "callee": {
+            "kind": "Var",
+            "text": "soma",
+            "location": {
+              "start": 39,
+              "end": 43,
+              "filename": "source.rinha"
+            }
+          },
+          "arguments": [
+            {
+              "kind": "Int",
+              "value": 10,
+              "location": {
+                "start": 44,
+                "end": 46,
+                "filename": "source.rinha"
+              }
+            },
+            {
+              "kind": "Int",
+              "value": 20,
+              "location": {
+                "start": 48,
+                "end": 50,
+                "filename": "source.rinha"
+              }
+            }
+          ],
+          "location": {
+            "start": 39,
+            "end": 51,
+            "filename": "source.rinha"
+          }
+        },
+        "location": {
+          "start": 0,
+          "end": 51,
+          "filename": "source.rinha"
+        }
+      }'
+    end
+
+    it { expect(evaluate).to eq(30) }
+  end
 end
 
 def formated_expression(string_json)

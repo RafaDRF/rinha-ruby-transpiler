@@ -1,8 +1,8 @@
 require_relative 'tuple'
-
+require_relative 'closure'
 class Interpreter
-  def initialize
-    @local_variables = {}
+  def initialize(local_variables = {})
+    @local_variables = local_variables
   end
 
   attr_accessor :local_variables
@@ -26,6 +26,10 @@ class Interpreter
       return evaluate(expression[:next])
     when 'Var'
       return local_variables[expression[:text]]
+    when 'Function'
+      return Closure.new(expression[:parameters], expression[:value], local_variables)
+    when 'Call'
+      return evaluate(expression[:callee]).call(expression[:arguments])
     end
 
     expression[:value]
@@ -61,4 +65,8 @@ class Interpreter
       lhs || rhs
     end
   end
+end
+
+class Clous
+  
 end
