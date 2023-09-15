@@ -80,7 +80,3 @@ class Interpreter
     end
   end
 end
-
-class Clous
-  
-end
