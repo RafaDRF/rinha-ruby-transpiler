@@ -10,7 +10,21 @@ class Interpreter
   def evaluate(expression)
     case expression[:kind]
     when 'Binary'
-      return binary_exp(evaluate(expression[:lhs]), expression[:op], evaluate(expression[:rhs]))
+      lhs = evaluate(expression[:lhs])
+      loop do
+        break if lhs.is_a?(Numeric) || lhs.respond_to?(:to_str) || lhs == true || lhs == false
+
+        lhs = evaluate(lhs)
+      end
+
+      rhs = evaluate(expression[:rhs])
+      loop do
+        break if rhs.is_a?(Numeric) || rhs.respond_to?(:to_str) || rhs == true || rhs == false
+
+        rhs = evaluate(rhs)
+      end
+
+      return binary_exp(lhs, expression[:op], rhs)
     when 'Print'
       return puts evaluate(expression[:value])
     when 'Tuple'
