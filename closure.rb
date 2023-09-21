@@ -1,5 +1,6 @@
 require_relative 'interpreter'
 require 'json'
+require 'byebug'
 class Closure
   def initialize(parameters, value, local_variables)
     @parameters = parameters
@@ -9,17 +10,18 @@ class Closure
 
   attr_accessor :parameters, :value, :local_variables
 
-  def call(arguments)
-    interpreter = Interpreter.new local_variables.merge(parse_local_variables(arguments))
-    interpreter.evaluate(value)
+  def call(interpreter, arguments)
+    interpreter.closures_variables.merge!(parse_local_variables(interpreter, arguments))
+    interpreter.evaluate_closure(value)
   end
 
-  def parse_local_variables(arguments)
-    varibles = {}
+  def parse_local_variables(interpreter, arguments)
+    variables = {}
 
     arguments.each_with_index do |a, index|
-      varibles.merge!({ parameters[index][:text] => a })
+      variables.merge!({ parameters[index][:text] => interpreter.evaluate(a) })
     end
-    varibles
+
+    variables
   end
 end

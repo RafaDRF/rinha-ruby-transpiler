@@ -1,30 +1,18 @@
 require_relative 'tuple'
 require_relative 'closure'
+require 'byebug'
 class Interpreter
-  def initialize(local_variables = {})
-    @local_variables = local_variables
+  def initialize
+    @local_variables = {}
+    @closures_variables = {}
   end
 
-  attr_accessor :local_variables
+  attr_accessor :local_variables, :closures_variables
 
   def evaluate(expression)
     case expression[:kind]
     when 'Binary'
-      lhs = evaluate(expression[:lhs])
-      loop do
-        break unless lhs.is_a?(Hash)
-
-        lhs = evaluate(lhs)
-      end
-
-      rhs = evaluate(expression[:rhs])
-      loop do
-        break unless rhs.is_a?(Hash)
-
-        rhs = evaluate(rhs)
-      end
-
-      return binary_exp(lhs, expression[:op], rhs)
+      return binary_exp(evaluate(expression[:lhs]), expression[:op], evaluate(expression[:rhs]))
     when 'Print'
       return puts evaluate(expression[:value])
     when 'Tuple'
@@ -39,14 +27,17 @@ class Interpreter
       local_variables.merge!({ expression[:name][:text] => evaluate(expression[:value]) })
       return evaluate(expression[:next])
     when 'Var'
-      return local_variables[expression[:text]]
+      return local_variables[expression[:text]] || closures_variables[expression[:text]]
     when 'Function'
       return Closure.new(expression[:parameters], expression[:value], local_variables)
     when 'Call'
-      return evaluate(expression[:callee]).call(expression[:arguments])
+      return evaluate(expression[:callee]).call(self, expression[:arguments])
     end
-
     expression[:value]
+  end
+
+  def evaluate_closure(value)
+    evaluate(value)
   end
 
   def binary_exp(lhs, op, rhs)

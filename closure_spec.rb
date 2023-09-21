@@ -1,4 +1,5 @@
 require_relative 'closure'
+require_relative 'interpreter'
 
 describe Closure do
   context '#parse_local_variables' do
@@ -8,7 +9,7 @@ describe Closure do
     end
 
     let(:arguments) do
-      [10, 20]
+      [{:kind=>"Int", :value=>10}, {:kind=>"Int", :value=>20}]
     end
 
     let(:value) do
@@ -16,7 +17,8 @@ describe Closure do
         op: 'Add', rhs: { kind: 'Var', text: 'b', location: { start: 33, end: 34, filename: 'source.rinha' } } }
     end
 
-    it { expect(described_class.new(parameters, value, {}).parse_local_variables(arguments)).to eq({ "a" => 10, "b" => 20 }) }
-    it { expect(described_class.new(parameters, value, {}).call(arguments)).to eq(30) }
+    let(:interpreter) { Interpreter.new }
+
+    it { expect(described_class.new(parameters, value, {}).call(interpreter, arguments)).to eq(30) }
   end
 end
