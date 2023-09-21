@@ -4,7 +4,7 @@ require 'byebug'
 class Interpreter
   def initialize
     @local_variables = {}
-    @closures_variables = {}
+    @closures_variables = []
   end
 
   attr_accessor :local_variables, :closures_variables
@@ -27,17 +27,20 @@ class Interpreter
       local_variables.merge!({ expression[:name][:text] => evaluate(expression[:value]) })
       return evaluate(expression[:next])
     when 'Var'
-      return local_variables[expression[:text]] || closures_variables[expression[:text]]
+      return local_variables[expression[:text]] || closures_variables.last[expression[:text]]
     when 'Function'
       return Closure.new(expression[:parameters], expression[:value], local_variables)
     when 'Call'
       return evaluate(expression[:callee]).call(self, expression[:arguments])
     end
+
     expression[:value]
   end
 
   def evaluate_closure(value)
-    evaluate(value)
+    closure_value = evaluate(value)
+    closures_variables.pop
+    closure_value
   end
 
   def binary_exp(lhs, op, rhs)

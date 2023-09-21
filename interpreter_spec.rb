@@ -537,13 +537,194 @@ describe Interpreter do
     it { expect(evaluate).to eq(30) }
   end
 
-  # context 'Recursão em closure' do
-  # let(:json_string) do
-  #   '{"name":"source.rinha","expression":{"kind":"Let","name":{"text":"recur","location":{"start":4,"end":9,"filename":"source.rinha"}},"value":{"kind":"Function","parameters":[{"text":"n","location":{"start":16,"end":17,"filename":"source.rinha"}}],"value":{"kind":"If","condition":{"kind":"Binary","lhs":{"kind":"Var","text":"n","location":{"start":30,"end":31,"filename":"source.rinha"}},"op":"Lt","rhs":{"kind":"Int","value":2,"location":{"start":34,"end":35,"filename":"source.rinha"}},"location":{"start":30,"end":35,"filename":"source.rinha"}},"then":{"kind":"Var","text":"n","location":{"start":43,"end":44,"filename":"source.rinha"}},"otherwise":{"kind":"Binary","lhs":{"kind":"Call","callee":{"kind":"Var","text":"recur","location":{"start":60,"end":65,"filename":"source.rinha"}},"arguments":[{"kind":"Binary","lhs":{"kind":"Var","text":"n","location":{"start":66,"end":67,"filename":"source.rinha"}},"op":"Sub","rhs":{"kind":"Int","value":1,"location":{"start":70,"end":71,"filename":"source.rinha"}},"location":{"start":66,"end":71,"filename":"source.rinha"}}],"location":{"start":60,"end":72,"filename":"source.rinha"}},"op":"Add","rhs":{"kind":"Var","text":"n","location":{"start":75,"end":76,"filename":"source.rinha"}},"location":{"start":60,"end":76,"filename":"source.rinha"}},"location":{"start":26,"end":80,"filename":"source.rinha"}},"location":{"start":12,"end":82,"filename":"source.rinha"}},"next":{"kind":"Call","callee":{"kind":"Var","text":"recur","location":{"start":85,"end":90,"filename":"source.rinha"}},"arguments":[{"kind":"Int","value":2,"location":{"start":91,"end":92,"filename":"source.rinha"}}],"location":{"start":85,"end":93,"filename":"source.rinha"}},"location":{"start":0,"end":93,"filename":"source.rinha"}},"location":{"start":0,"end":93,"filename":"source.rinha"}}'
-  # end
+  context 'recursão' do
+=begin
+let recur = fn(a) => {
+  if(a < 2) {
+    a
+  }
+  else {
+    recur(a - 1) + a
+  }
+};
 
-  # it { expect(evaluate).to eq(3) }
-  # end
+recur(2)
+=end
+    let(:json_string) do
+      '{
+        "kind": "Let",
+        "name": {
+          "text": "recur",
+          "location": {
+            "start": 4,
+            "end": 9,
+            "filename": "source.rinha"
+          }
+        },
+        "value": {
+          "kind": "Function",
+          "parameters": [
+            {
+              "text": "a",
+              "location": {
+                "start": 15,
+                "end": 16,
+                "filename": "source.rinha"
+              }
+            }
+          ],
+          "value": {
+            "kind": "If",
+            "condition": {
+              "kind": "Binary",
+              "lhs": {
+                "kind": "Var",
+                "text": "a",
+                "location": {
+                  "start": 28,
+                  "end": 29,
+                  "filename": "source.rinha"
+                }
+              },
+              "op": "Lt",
+              "rhs": {
+                "kind": "Int",
+                "value": 2,
+                "location": {
+                  "start": 32,
+                  "end": 33,
+                  "filename": "source.rinha"
+                }
+              },
+              "location": {
+                "start": 28,
+                "end": 33,
+                "filename": "source.rinha"
+              }
+            },
+            "then": {
+              "kind": "Var",
+              "text": "a",
+              "location": {
+                "start": 41,
+                "end": 42,
+                "filename": "source.rinha"
+              }
+            },
+            "otherwise": {
+              "kind": "Binary",
+              "lhs": {
+                "kind": "Call",
+                "callee": {
+                  "kind": "Var",
+                  "text": "recur",
+                  "location": {
+                    "start": 60,
+                    "end": 65,
+                    "filename": "source.rinha"
+                  }
+                },
+                "arguments": [
+                  {
+                    "kind": "Binary",
+                    "lhs": {
+                      "kind": "Var",
+                      "text": "a",
+                      "location": {
+                        "start": 66,
+                        "end": 67,
+                        "filename": "source.rinha"
+                      }
+                    },
+                    "op": "Sub",
+                    "rhs": {
+                      "kind": "Int",
+                      "value": 1,
+                      "location": {
+                        "start": 70,
+                        "end": 71,
+                        "filename": "source.rinha"
+                      }
+                    },
+                    "location": {
+                      "start": 66,
+                      "end": 71,
+                      "filename": "source.rinha"
+                    }
+                  }
+                ],
+                "location": {
+                  "start": 60,
+                  "end": 72,
+                  "filename": "source.rinha"
+                }
+              },
+              "op": "Add",
+              "rhs": {
+                "kind": "Var",
+                "text": "a",
+                "location": {
+                  "start": 75,
+                  "end": 76,
+                  "filename": "source.rinha"
+                }
+              },
+              "location": {
+                "start": 60,
+                "end": 76,
+                "filename": "source.rinha"
+              }
+            },
+            "location": {
+              "start": 25,
+              "end": 80,
+              "filename": "source.rinha"
+            }
+          },
+          "location": {
+            "start": 12,
+            "end": 82,
+            "filename": "source.rinha"
+          }
+        },
+        "next": {
+          "kind": "Call",
+          "callee": {
+            "kind": "Var",
+            "text": "recur",
+            "location": {
+              "start": 85,
+              "end": 90,
+              "filename": "source.rinha"
+            }
+          },
+          "arguments": [
+            {
+              "kind": "Int",
+              "value": 2,
+              "location": {
+                "start": 91,
+                "end": 92,
+                "filename": "source.rinha"
+              }
+            }
+          ],
+          "location": {
+            "start": 85,
+            "end": 93,
+            "filename": "source.rinha"
+          }
+        },
+        "location": {
+          "start": 0,
+          "end": 93,
+          "filename": "source.rinha"
+        }
+      }'
+    end
+
+    it { expect(evaluate).to eq(3) }
+  end
 end
 
 def formated_expression(string_json)
