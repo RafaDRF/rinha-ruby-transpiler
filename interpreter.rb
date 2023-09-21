@@ -1,6 +1,5 @@
 require_relative 'tuple'
 require_relative 'closure'
-require 'byebug'
 class Interpreter
   def initialize
     @local_variables = {}
