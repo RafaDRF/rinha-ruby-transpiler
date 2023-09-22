@@ -11,29 +11,29 @@ class Interpreter
   def evaluate(expression)
     case expression[:kind]
     when 'Binary'
-      return binary_exp(evaluate(expression[:lhs]), expression[:op], evaluate(expression[:rhs]))
+      binary_exp(evaluate(expression[:lhs]), expression[:op], evaluate(expression[:rhs]))
     when 'Print'
-      return puts evaluate(expression[:value])
+      puts evaluate(expression[:value])
     when 'Tuple'
-      return Tuple.new(evaluate(expression[:first]), evaluate(expression[:second]))
+      Tuple.new(evaluate(expression[:first]), evaluate(expression[:second]))
     when 'First'
-      return evaluate(expression[:value]).first
+      evaluate(expression[:value]).first
     when 'Second'
-      return evaluate(expression[:value]).second
+      evaluate(expression[:value]).second
     when 'If'
-      return evaluate(expression[:condition]) ? evaluate(expression[:then]) : evaluate(expression[:otherwise])
+      evaluate(expression[:condition]) ? evaluate(expression[:then]) : evaluate(expression[:otherwise])
     when 'Let'
       local_variables.merge!({ expression[:name][:text] => evaluate(expression[:value]) })
-      return evaluate(expression[:next])
+      evaluate(expression[:next])
     when 'Var'
-      return local_variables[expression[:text]] || closures_variables.last[expression[:text]]
+      local_variables[expression[:text]] || closures_variables.last[expression[:text]]
     when 'Function'
-      return Closure.new(expression[:parameters], expression[:value], local_variables)
+      Closure.new(expression[:parameters], expression[:value], local_variables)
     when 'Call'
-      return evaluate(expression[:callee]).call(self, expression[:arguments])
+      evaluate(expression[:callee]).call(self, expression[:arguments])
+    else
+      expression[:value]
     end
-
-    expression[:value]
   end
 
   def evaluate_closure(value)
