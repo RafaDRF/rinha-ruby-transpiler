@@ -1,5 +1,5 @@
 require_relative 'interpreter'
-require 'json'
+
 class Closure
   def initialize(parameters, value, local_variables)
     @parameters = parameters
