@@ -30,3 +30,9 @@ Para configurar o parser é preciso:
     cargo install rinha
     ```
 - Adicionar o Cargo ao $PATH
+
+## Como rodar os testes
+
+```
+rspec -f d .
+```
