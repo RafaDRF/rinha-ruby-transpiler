@@ -136,7 +136,7 @@ describe Interpreter do
       it { expect(evaluate).to eq(5) }
     end
 
-    context 'Concatenação de Inteiro com String' do
+    context 'Concatenação de Inteiro e String' do
       # Codigo em .rinha:
       #
       # "a" + 2
@@ -437,7 +437,7 @@ describe Interpreter do
   end
 
   context 'Print' do
-    context 'String com entrada' do
+    context 'String como entrada' do
       # Codigo em .rinha:
       #
       # print("alguma coisa")
@@ -538,7 +538,7 @@ describe Interpreter do
     it { expect(evaluate).to eq(4) }
   end
 
-  context 'Atribuição com operação binária' do
+  context 'Atribuição e operação binária' do
     # Codigo em .rinha:
     #
     # Let a = 1
