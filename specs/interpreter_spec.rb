@@ -741,7 +741,7 @@ describe Interpreter do
       it { expect(evaluate).to eq(3) }
     end
 
-    context 'fibonacci recursivo' do
+    context 'fibonacci recursivo de 10' do
       # Codigo em .rinha:
       #
       # let fib = fn (n) => {

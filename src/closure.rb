@@ -10,7 +10,7 @@ class Closure
   attr_accessor :parameters, :value, :local_variables
 
   def call(interpreter, arguments)
-    interpreter.closures_variables << parse_local_variables(interpreter, arguments)
+    interpreter.clousures_scope << parse_local_variables(interpreter, arguments)
     interpreter.evaluate_closure(value)
   end
 

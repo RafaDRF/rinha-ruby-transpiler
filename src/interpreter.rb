@@ -2,11 +2,11 @@ require_relative 'tuple'
 require_relative 'closure'
 class Interpreter
   def initialize
-    @local_variables = {}
-    @closures_variables = []
+    @main_scope = {}
+    @clousures_scope = []
   end
 
-  attr_accessor :local_variables, :closures_variables
+  attr_accessor :main_scope, :clousures_scope
 
   def evaluate(expression)
     case expression[:kind]
@@ -23,12 +23,12 @@ class Interpreter
     when 'If'
       evaluate(expression[:condition]) ? evaluate(expression[:then]) : evaluate(expression[:otherwise])
     when 'Let'
-      local_variables.merge!({ expression[:name][:text] => evaluate(expression[:value]) })
+      main_scope.merge!({ expression[:name][:text] => evaluate(expression[:value]) })
       evaluate(expression[:next])
     when 'Var'
-      local_variables[expression[:text]] || closures_variables.last[expression[:text]]
+      main_scope[expression[:text]] || clousures_scope.last[expression[:text]]
     when 'Function'
-      Closure.new(expression[:parameters], expression[:value], local_variables)
+      Closure.new(expression[:parameters], expression[:value], main_scope)
     when 'Call'
       evaluate(expression[:callee]).call(self, expression[:arguments])
     else
@@ -38,7 +38,7 @@ class Interpreter
 
   def evaluate_closure(value)
     closure_value = evaluate(value)
-    closures_variables.pop
+    clousures_scope.pop
     closure_value
   end
 

@@ -2,7 +2,7 @@ require_relative '../src/closure'
 require_relative '../src/interpreter'
 
 describe Closure do
-  context '#parse_local_variables' do
+  context '#call' do
     let(:parameters) do
       [{ text: 'a' },
        { text: 'b' }]
