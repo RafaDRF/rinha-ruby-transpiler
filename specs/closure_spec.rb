@@ -1,5 +1,5 @@
-require_relative '../closure'
-require_relative '../interpreter'
+require_relative '../src/closure'
+require_relative '../src/interpreter'
 
 describe Closure do
   context '#parse_local_variables' do

@@ -1,4 +1,4 @@
-require_relative '../interpreter'
+require_relative '../src/interpreter'
 require 'json'
 
 describe Interpreter do

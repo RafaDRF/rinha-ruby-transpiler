@@ -8,10 +8,7 @@ WORKDIR /app
 COPY Gemfile Gemfile.lock ./
 RUN bundle install
 
-COPY exec.rb ./
-COPY interpreter.rb ./
-COPY tuple.rb ./
-COPY closure.rb ./
+COPY src/ ./src
 COPY ./var/rinha/source.rinha.json /var/rinha/source.rinha.json
 
-CMD ["ruby", "exec.rb"]
+CMD ["ruby", "src/exec.rb"]
