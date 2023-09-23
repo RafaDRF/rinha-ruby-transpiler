@@ -42,34 +42,27 @@ class Interpreter
     closure_value
   end
 
-  def binary_exp(lhs, op, rhs)
-    case op
-    when 'Add'
-      [lhs, rhs].all?(Numeric) ? lhs + rhs : lhs.to_s + rhs.to_s
-    when 'Sub'
-      lhs - rhs
-    when 'Mul'
-      lhs * rhs
-    when 'Div'
-      lhs / rhs
-    when 'Rem'
-      lhs % rhs
-    when 'Eq'
-      lhs == rhs
-    when 'Neq'
-      lhs != rhs
-    when 'Lt'
-      lhs < rhs
-    when 'Gt'
-      lhs > rhs
-    when 'Lte'
-      lhs <= rhs
-    when 'Gte'
-      lhs >= rhs
-    when 'And'
-      lhs && rhs
-    when 'Or'
-      lhs || rhs
-    end
+  def binary_exp(lhs, operation, rhs)
+    sides = [lhs, rhs]
+
+    sides.map!(&:to_s) if operation == 'Add' && sides.any?(String)
+
+    sides.reduce(OPERATIONS_MAP[operation.to_sym])
   end
+
+  OPERATIONS_MAP = {
+    Add: :+,
+    Sub: :-,
+    Mul: :*,
+    Div: :/,
+    Rem: :%,
+    Eq: :==,
+    Neq: :!=,
+    Lt: :<,
+    Gt: :>,
+    Lte: :<=,
+    Gte: :>=,
+    And: :&,
+    Or: :|
+  }.freeze
 end
